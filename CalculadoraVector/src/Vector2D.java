@@ -38,22 +38,6 @@ public class Vector2D extends Vector {
     }
 
     @Override
-    public Vector2D escalar(double k) {
-        return new Vector2D(getX() * k, getY() * k);
-    }
-
-    @Override
-    public Vector2D normalizar() {
-        double m = magnitud();
-        if (m == 0) return new Vector2D(0, 0);
-        return new Vector2D(getX() / m, getY() / m);
-    }
-    
-    public double productoCruz(Vector2D otro) {
-        return getX() * otro.getY() - getY() * otro.getX();
-    }
-
-    @Override
     public String toString() {
         return String.format("(%.2f, %.2f)", getX(), getY());
     }

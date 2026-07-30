@@ -72,7 +72,6 @@ public class VentanaPrincipal extends JFrame {
         agregarBoton(botones, "Graficar A y B", e -> graficar2D());
         agregarBoton(botones, "A + B (suma)", e -> operar2D("suma"));
         agregarBoton(botones, "A - B (resta)", e -> operar2D("resta"));
-        agregarBoton(botones, "A · B (producto punto)", e -> operar2D("punto"));
         agregarBoton(botones, "|A| y |B| (magnitud)", e -> operar2D("magnitud"));
         agregarBoton(botones, "Limpiar gráfico", e -> { grafico2D.limpiar(); resultado2.setText(""); });
 
@@ -144,28 +143,9 @@ public class VentanaPrincipal extends JFrame {
                     resultado = a.resta(b);
                     sb.append("A - B = ").append(resultado);
                     break;
-                case "punto":
-                    sb.append("A · B = ").append(String.format("%.3f", a.productoPunto(b)));
-                    break;
-                case "cruz":
-                    sb.append("A x B (escalar 2D) = ").append(String.format("%.3f", a.productoCruz(b)));
-                    break;
                 case "magnitud":
                     sb.append("|A| = ").append(String.format("%.3f", a.magnitud()))
                       .append("\n|B| = ").append(String.format("%.3f", b.magnitud()));
-                    break;
-                case "escalar":
-                    double k = leerDouble(escalar2);
-                    resultado = a.escalar(k);
-                    sb.append(k).append(" · A = ").append(resultado);
-                    break;
-                case "normalizar":
-                    resultado = a.normalizar();
-                    sb.append("Vector unitario de A = ").append(resultado);
-                    break;
-                case "angulo":
-                    sb.append("Ángulo entre A y B = ")
-                      .append(String.format("%.2f°", a.anguloEntre(b)));
                     break;
             }
 
@@ -226,12 +206,7 @@ public class VentanaPrincipal extends JFrame {
         //agregarBoton(botones, "Graficar A y B", e -> graficar3D());
         agregarBoton(botones, "A + B (suma)", e -> operar3D("suma"));
         agregarBoton(botones, "A - B (resta)", e -> operar3D("resta"));
-        agregarBoton(botones, "A · B (producto punto)", e -> operar3D("punto"));
-        agregarBoton(botones, "A x B (producto cruz / normal)", e -> operar3D("cruz"));
         agregarBoton(botones, "|A| y |B| (magnitud)", e -> operar3D("magnitud"));
-        agregarBoton(botones, "k · A (escalar)", e -> operar3D("escalar"));
-        agregarBoton(botones, "Normalizar A", e -> operar3D("normalizar"));
-        agregarBoton(botones, "Ángulo entre A y B", e -> operar3D("angulo"));
         agregarBoton(botones, "Limpiar gráfico", e -> { grafico3D.limpiar(); resultado3.setText(""); });
 
         controles.add(entradaA);
@@ -273,19 +248,6 @@ public class VentanaPrincipal extends JFrame {
         return new Vector3D(leerDouble(bx3), leerDouble(by3), leerDouble(bz3));
     }
 
-    private void graficar3D() {
-        try {
-            Vector3D a = leerVectorA3D();
-            Vector3D b = leerVectorB3D();
-            grafico3D.limpiar();
-            grafico3D.agregarVector(a, COLOR_A, "A");
-            grafico3D.agregarVector(b, COLOR_B, "B");
-            resultado3.setText("A = " + a + "\nB = " + b);
-        } catch (NumberFormatException ex) {
-            mostrarError();
-        }
-    }
-
     private void operar3D(String operacion) {
         try {
             Vector3D a = leerVectorA3D();
@@ -302,29 +264,9 @@ public class VentanaPrincipal extends JFrame {
                     resultado = a.resta(b);
                     sb.append("A - B = ").append(resultado);
                     break;
-                case "punto":
-                    sb.append("A · B = ").append(String.format("%.3f", a.productoPunto(b)));
-                    break;
-                case "cruz":
-                    resultado = a.productoCruz(b);
-                    sb.append("A x B (vector normal) = ").append(resultado);
-                    break;
                 case "magnitud":
                     sb.append("|A| = ").append(String.format("%.3f", a.magnitud()))
                       .append("\n|B| = ").append(String.format("%.3f", b.magnitud()));
-                    break;
-                case "escalar":
-                    double k = leerDouble(escalar3);
-                    resultado = a.escalar(k);
-                    sb.append(k).append(" · A = ").append(resultado);
-                    break;
-                case "normalizar":
-                    resultado = a.normalizar();
-                    sb.append("Vector unitario de A = ").append(resultado);
-                    break;
-                case "angulo":
-                    sb.append("Ángulo entre A y B = ")
-                      .append(String.format("%.2f°", a.anguloEntre(b)));
                     break;
             }
 

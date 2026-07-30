@@ -31,25 +31,6 @@ public class Vector3D extends Vector {
     }
 
     @Override
-    public Vector3D escalar(double k) {
-        return new Vector3D(getX() * k, getY() * k, getZ() * k);
-    }
-
-    @Override
-    public Vector3D normalizar() {
-        double m = magnitud();
-        if (m == 0) return new Vector3D(0, 0, 0);
-        return new Vector3D(getX() / m, getY() / m, getZ() / m);
-    }
-
-    public Vector3D productoCruz(Vector3D otro) {
-        double cx = getY() * otro.getZ() - getZ() * otro.getY();
-        double cy = getZ() * otro.getX() - getX() * otro.getZ();
-        double cz = getX() * otro.getY() - getY() * otro.getX();
-        return new Vector3D(cx, cy, cz);
-    }
-
-    @Override
     public String toString() {
         return String.format("(%.2f, %.2f, %.2f)", getX(), getY(), getZ());
     }
