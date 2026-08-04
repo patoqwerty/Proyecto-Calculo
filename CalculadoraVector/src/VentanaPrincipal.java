@@ -4,7 +4,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-
 public class VentanaPrincipal extends JFrame {
 
     private static final Color COLOR_A = new Color(0, 102, 204);   
@@ -12,12 +11,12 @@ public class VentanaPrincipal extends JFrame {
     private static final Color COLOR_R = new Color(0, 153, 76);    
 
     // ---- Componentes de la pestaña 2D ----
-    private JTextField ax2, ay2, bx2, by2, escalar2;
+    private JTextField ax2, ay2, bx2, by2;
     private JTextArea resultado2;
     private GraficoPanel2D grafico2D;
 
-    //Componentes de la pestaña 3D 
-    private JTextField ax3, ay3, az3, bx3, by3, bz3, escalar3;
+    // ---- Componentes de la pestaña 3D ----
+    private JTextField ax3, ay3, az3, bx3, by3, bz3;
     private JTextArea resultado3;
     private GraficoPanel3D grafico3D;
 
@@ -34,7 +33,9 @@ public class VentanaPrincipal extends JFrame {
         add(pestañas);
     }
 
-    //  Pestaña 2d
+    // ======================================================
+    //                   PESTAÑA 2D
+    // ======================================================
     private JPanel construirPestaña2D() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -61,12 +62,6 @@ public class VentanaPrincipal extends JFrame {
         entradaB.add(new JLabel("y:"));
         entradaB.add(by2);
 
-        JPanel entradaEscalar = new JPanel(new GridLayout(1, 2, 5, 5));
-        entradaEscalar.setBorder(BorderFactory.createTitledBorder("Escalar (k) para A"));
-        escalar2 = new JTextField("2");
-        entradaEscalar.add(new JLabel("k:"));
-        entradaEscalar.add(escalar2);
-
         JPanel botones = new JPanel(new GridLayout(0, 1, 5, 5));
         botones.setBorder(BorderFactory.createTitledBorder("Operaciones"));
         agregarBoton(botones, "Graficar A y B", e -> graficar2D());
@@ -78,8 +73,6 @@ public class VentanaPrincipal extends JFrame {
         controles.add(entradaA);
         controles.add(Box.createVerticalStrut(8));
         controles.add(entradaB);
-        controles.add(Box.createVerticalStrut(8));
-        controles.add(entradaEscalar);
         controles.add(Box.createVerticalStrut(8));
         controles.add(botones);
 
@@ -162,8 +155,10 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    // Pestaña 3d
-        private JPanel construirPestaña3D() {
+    // ======================================================
+    //                   PESTAÑA 3D
+    // ======================================================
+    private JPanel construirPestaña3D() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -195,15 +190,12 @@ public class VentanaPrincipal extends JFrame {
         entradaB.add(new JLabel("z:"));
         entradaB.add(bz3);
 
-        JPanel entradaEscalar = new JPanel(new GridLayout(1, 2, 5, 5));
-        entradaEscalar.setBorder(BorderFactory.createTitledBorder("Escalar (k) para A"));
-        escalar3 = new JTextField("2");
-        entradaEscalar.add(new JLabel("k:"));
-        entradaEscalar.add(escalar3);
-
         JPanel botones = new JPanel(new GridLayout(0, 1, 5, 5));
         botones.setBorder(BorderFactory.createTitledBorder("Operaciones"));
-        //agregarBoton(botones, "Graficar A y B", e -> graficar3D());
+        
+        // ¡Aquí está el botón agregado!
+        agregarBoton(botones, "Graficar A y B", e -> graficar3D()); 
+        
         agregarBoton(botones, "A + B (suma)", e -> operar3D("suma"));
         agregarBoton(botones, "A - B (resta)", e -> operar3D("resta"));
         agregarBoton(botones, "|A| y |B| (magnitud)", e -> operar3D("magnitud"));
@@ -212,8 +204,6 @@ public class VentanaPrincipal extends JFrame {
         controles.add(entradaA);
         controles.add(Box.createVerticalStrut(8));
         controles.add(entradaB);
-        controles.add(Box.createVerticalStrut(8));
-        controles.add(entradaEscalar);
         controles.add(Box.createVerticalStrut(8));
         controles.add(botones);
 
@@ -246,6 +236,20 @@ public class VentanaPrincipal extends JFrame {
 
     private Vector3D leerVectorB3D() {
         return new Vector3D(leerDouble(bx3), leerDouble(by3), leerDouble(bz3));
+    }
+
+    // Nuevo método para graficar en 3D sin operar
+    private void graficar3D() {
+        try {
+            Vector3D a = leerVectorA3D();
+            Vector3D b = leerVectorB3D();
+            grafico3D.limpiar();
+            grafico3D.agregarVector(a, COLOR_A, "A");
+            grafico3D.agregarVector(b, COLOR_B, "B");
+            resultado3.setText("A = " + a + "\nB = " + b);
+        } catch (NumberFormatException ex) {
+            mostrarError();
+        }
     }
 
     private void operar3D(String operacion) {
@@ -308,4 +312,3 @@ public class VentanaPrincipal extends JFrame {
             "Entrada inválida", JOptionPane.ERROR_MESSAGE);
     }
 }
-

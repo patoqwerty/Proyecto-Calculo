@@ -1,4 +1,3 @@
-//Clase padre
 public abstract class Vector {
 
     protected double[] componentes;
@@ -15,8 +14,7 @@ public abstract class Vector {
         return componentes.clone();
     }
 
-    //Magnitud
-
+    // Magnitud
     public double magnitud() {
         double sumaCuadrados = 0;
         for (double c : componentes) {
@@ -25,7 +23,8 @@ public abstract class Vector {
         return Math.sqrt(sumaCuadrados);
     }
 
-    //Verifica que los vectores tengan la misma dimensión
+
+    // Verifica que los vectores tengan la misma dimensiónyyy 
     protected void validarMismaDimension(Vector otro) {
         if (this.getDimension() != otro.getDimension()) {
             throw new IllegalArgumentException(

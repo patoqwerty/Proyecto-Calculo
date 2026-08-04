@@ -42,4 +42,3 @@ public class Vector2D extends Vector {
         return String.format("(%.2f, %.2f)", getX(), getY());
     }
 }
-

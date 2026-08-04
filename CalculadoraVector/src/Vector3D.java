@@ -35,4 +35,3 @@ public class Vector3D extends Vector {
         return String.format("(%.2f, %.2f, %.2f)", getX(), getY(), getZ());
     }
 }
-
